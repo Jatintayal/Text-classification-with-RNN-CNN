@@ -1,0 +1,57 @@
+﻿Text Classification with RNN & CNN architectures
+
+
+The first thing I did was explore the dataset to see what changes I have to make to in the datasets before moving further. So after analyzing the datasets I realized that the train_label dataset needed modifications because I couldn't use it as it was for the classification so I created a seperate train_labels_generator.py file which took care of this problem.
+
+
+# Data Pre-processing / Noise removal - 
+The dataset wasn't ready yet for the training because if I couldn't use it as it was for the training process because it would be affect the accuracy and would take a lot of time to train so I used the following techniques for noise removal - 
+
+1 - Lower case
+The first pre-processing step which we will do is transform our text into lower case. This avoids having multiple copies of the same words. For example, while calculating the word count, ‘Analytics’ and ‘analytics’ will be taken as different words.
+
+2 - Removing Punctuation
+The next step is to remove punctuation, as it doesn’t add any extra information while treating text data. Therefore removing all instances of it will help us reduce the size of the training data.
+
+3 - Removal of Stop Words
+As we discussed earlier, stop words (or commonly occurring words) should be removed from the text data. For this purpose, we can either create a list of stopwords ourselves or we can use predefined libraries.
+
+4 - Lemmatization
+Lemmatization is a more effective option than stemming because it converts the word into its root word, rather than just stripping the suffices. It makes use of the vocabulary and does a morphological analysis to obtain the root word. Therefore, we usually prefer using lemmatization over stemming.
+
+5 - Remove Integers
+Removing the integers will help us because our dataset doesn't depend on them and by removing them we can reduce the number of low frequency words which will help in training process
+
+6 - Removal of less frequent words 
+Our dataset has around 130k unique words and most of them never repeated even once in the entire dataset and they can't help our model in learning so here I removed all of them except the ones which occured more than 5 times.
+
+
+# Data visualization - 
+There isn't a lot we can visualize in text datasets but I tried to use some techniques like WordCloud which shows the most frequent words in an elegant way. I also showed shapes and a glimpse of how datasets looked like at different stages of the model. I was going to try some relational scatter plots also but due to lack of time I didn't use them.
+
+
+# Model Fitting - 
+I know you have a lot of applicants for the post so to improve my chances I tried a different approach in this text classification task as I used two different types of neural networks (RNN & CNN) with word embeddings to check their performance on this dataset. I used LSTM in both the models.
+The RNN took significantly more time to train as compared to CNN and CNN performed slightly better than RNN.
+
+
+# Performance metric evaluation -
+The metrics I used are accuracy, precision, recall, f1 score.
+The CNN model performed slightly better as compared to RNN.
+
+RNN - 
+weighted avg precision - 0.75, weighted avg recall - 0.72, weighted avg f1 score - 0.73
+
+RNN - 
+weighted avg precision - 0.77, weighted avg recall - 0.76, weighted avg f1 score - 0.76
+
+
+# Analyzing mistakes - 
+I made a lot of mistakes during this assignment such as - 
+1)At first I just assumed that the maximum words in a sentence would be around 150. So I made 150 the maxlen of the sentences. Which left out a lot of data because real number was around 900 so it resulted in poor performance of the model.
+2)At first I just shoved the data in the model to train without checking the frequency of words which made the training process a pain as it was taking forever to train because it had around 130k unique words and most of which didn't repeat even once.
+3)I trained the model almost 10 - 15 times with different parameter configurations to figure out why the accuracy was so low without checking other performance metrics like f1 score.
+
+
+#Output -
+You will find a pred.csv file in Output folder which contains the labels for the test file dataset.
